@@ -15,8 +15,6 @@ async fn get_users() -> impl Responder {
     let users = vec![
         User { id: 1, name: "Alice".to_string() },
         User { id: 2, name: "Bob".to_string() },
-        User { id: 3, name: "bebe".to_string() },
-        User { id: 4, name: "poop".to_string() },
     ];
     let current_count = COUNT.fetch_add(1, Ordering::SeqCst);
     println!("hello! A request was generated: {}", current_count);
