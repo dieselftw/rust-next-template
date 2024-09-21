@@ -18,3 +18,10 @@ services:
       - "3000:3000"
     depends_on:
       - backend
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true # Enable polling for reliable file change detection
+      - WATCHPACK_POLLING=true # Another environment variable for reliable file change detection
+    volumes:
+      - ./frontend:/app # Mount the local frontend directory to /app in the container
+      - /app/node_modules

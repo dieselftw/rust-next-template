@@ -29,7 +29,7 @@ const UserList: React.FC = () => {
           <li key={user.id}>{user.name}</li>
         ))}
       </ul>
-      <button onClick={getUsers}>Hello</button>
+      <button onClick={getUsers}>Hardik Bhatia</button>
     </div>
   );
 };

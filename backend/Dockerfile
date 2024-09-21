@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 # Copy the entire project
 COPY . .
 
-# Install any needed packages specified in Cargo.toml
+# Install any neaeded packages specified in Cargo.toml
 RUN cargo build
 
 # Set environment variable for logging

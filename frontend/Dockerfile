@@ -1,29 +1,20 @@
-FROM node:18-alpine AS builder
+# Use the official Node.js 18 Alpine image
+FROM node:18-alpine
 
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy package.json and package-lock.json to install dependencies
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci
+RUN npm install
 
-# Copy the rest of the code
+# Copy the rest of the application code
 COPY . .
 
-# Build the application
-RUN npm run build
-
-FROM node:18-alpine AS runner
-
-WORKDIR /app
-
-# Copy necessary files from builder stage
-COPY --from=builder /app/next.config.mjs ./
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-
+# Expose Next.js development server port
 EXPOSE 3000
 
-CMD ["npm", "start"]
+# Run Next.js in development mode with hot-reloading
+CMD ["npm", "run", "dev"]

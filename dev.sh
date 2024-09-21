@@ -19,7 +19,7 @@ docker compose up --build -d
 
 # Wait for containers to start
 echo "Waiting for containers to start..."
-sleep 10
+sleep 5
 
 # Print container status
 docker compose ps
