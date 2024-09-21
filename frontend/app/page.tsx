@@ -23,7 +23,7 @@ const UserList: React.FC = () => {
 
   return (
     <div className='bg-white'>
-      <h1>Users</h1>
+      <h1>User</h1>
       <ul>
         {users.map(user => (
           <li key={user.id}>{user.name}</li>
