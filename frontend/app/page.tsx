@@ -1,37 +1,26 @@
-'use client'
+'use client';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { auth } from '../lib/firebase';
+import { User } from 'firebase/auth';
 
-import React, { useState, useEffect } from 'react';
-
-interface User {
-  id: number;
-  name: string;
-}
-
-const UserList: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
-
-  async function getUsers() {
-    fetch('http://localhost:8080/api/users')
-      .then(response => response.json())
-      .then(data => setUsers(data))
-      .catch(error => console.error('Error fetching users:', error));
-  }
+export default function Home() {
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    getUsers();
+    const unsubscribe = auth.onAuthStateChanged(setUser);
+    return () => unsubscribe();
   }, []);
 
   return (
-    <div className='bg-white'>
-      <h1>User</h1>
-      <ul>
-        {users.map(user => (
-          <li key={user.id}>{user.name}</li>
-        ))}
-      </ul>
-      <button onClick={getUsers}>Get user!</button>
-    </div>
+    <main className="flex min-h-screen flex-col items-center justify-center p-24">
+      <h1 className="text-4xl font-bold mb-8">Welcome to SuperJoin Clone</h1>
+      <Link 
+        href={user ? '/dashboard' : '/login'}
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        {user ? 'Go to Dashboard' : 'Login'}
+      </Link>
+    </main>
   );
-};
-
-export default UserList;
+}
